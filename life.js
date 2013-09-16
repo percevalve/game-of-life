@@ -2,38 +2,19 @@
 var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells,square_dimension)
 {
 	var that = {};
-//randomness will have some cell at a of 1, randomness 1 means all of them are alive, 0 all are dead
-	initArray = function(width,height,randomness) {
-		return recursiveArray(width,randomness).map(function () {return recursiveArray(height,randomness);});
-	}
+//The rule : Status of the cell, Number of Neighbors, Decision (ie Dead or Alive)
+	var rules = [];
+	rules[0] = [];
+	rules[1] = [];
+	rules[0][3]=1;
+	rules[1][0]=0;
+	rules[1][1]=0;
+	rules[1][4]=0;
+	rules[1][5]=0;
+	rules[1][6]=0;
+	rules[1][7]=0;
+	rules[1][8]=0;
 
-//Create the lines of the world
-	recursiveArray = function(n,randomness) { 
-		if(n<=0) return []; 
-		var result = [Math.random() < randomness ? 1 : 0]; 
-		return result.concat(recursiveArray(n-1,randomness));
-	}
-   
-//this returns positive value for a modulo
-    positive_mod = function(n,mod) {
-    	return (((n % mod) + mod ) % mod);
-    }
-
-    all_the_values = function(table,needle) { 
-    	var last = table.lastIndexOf(needle) ; 
-    	if(last === -1)
-    		return [];
-    	var recursion = all_the_one(table.slice(0,last),needle);
-		return recursion.concat([last]);
-    }
-
-
-
-//this returns the index of all the value one in a given array
-    all_the_one = function(table) { 
-    	var needle = 1 ;
-		return all_the_values(table,needle);
-    }
 
     update_neighbors_cell = function(x,y,value)
     {
@@ -44,6 +25,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 				myNeighbors[xx][yy] = myNeighbors[xx][yy] + value ;
 			}
 		}
+		//The actual value was also added, need to be corrected.
 		myNeighbors[x][y] -= value;
     }
 
@@ -60,8 +42,61 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     }
 
 
+//Still done in nested for loops, but should be done in the samed
+	who_is_alive = function(){
+		for (var i = 0; i < number_of_cells_per_line ; i = i + 1) {
+			for (var j = 0; j < number_of_lines_of_cells ; j = j + 1) {
+				answer = rules[myCells[i][j]][myNeighbors[i][j]] ;
+				myCells[i][j] = typeof answer === "undefined" ? myCells[i][j] : answer;
+			}
+		}
+	}
 
-    engine_generator = function(x,y,engin_def,h,v)
+	that.generations = function()
+	{
+		who_is_alive();
+		that.complete_update();
+		that.draw();
+	}
+
+////////////////////////
+//Drawing the world.
+////////////////////////
+
+	color_code = function(n){
+    	if(n > 0)
+			color = Color(255,255,255);
+		else
+			color = Color(0,0,0);
+		return color;
+    }
+
+    draw_cell = function(x,y,status)
+    {
+    	my_color = color_code(status);
+    	pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
+						square_dimension, square_dimension, 0, color_code(0),my_color);
+    }
+
+    that.myCells = function(){
+     return myCells;
+ }
+
+	that.draw = function()
+	{
+		pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(),0, color_code(0),color_code(0));
+		map_the_living_cells.forEach(function(element,x) { 
+				element.forEach(function(y,indice) {
+					draw_cell(x,y,1);
+				})
+		});
+	}
+
+
+////////////////////////
+//Adding some objects and special behavior
+////////////////////////
+	engine_generator = function(x,y,engin_def,h,v)
     {
     	x = typeof x === "undefined" ? Math.floor(Math.random()*number_of_cells_per_line) : x;
     	y = typeof y === "undefined" ? Math.floor(Math.random()*number_of_lines_of_cells) : y;
@@ -156,70 +191,11 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     	that.draw();
     }
 
-//Still done in nested for loops, but should be done in the samed
-	who_is_alive = function(){
-		for (var i = 0; i < number_of_cells_per_line ; i = i + 1) {
-			for (var j = 0; j < number_of_lines_of_cells ; j = j + 1) {
-				if(myCells[i][j] === 0){
-					if(myNeighbors[i][j] === 3){
-						myCells[i][j] = 1
-					}
-				}
-				if(myCells[i][j] === 1){
-					if(myNeighbors[i][j] < 2){
-						myCells[i][j] = 0
-					}
-					if(myNeighbors[i][j] > 3){
-						myCells[i][j] = 0
-					}
-				}
-			}
-		}
-	}
-
-	that.generations = function()
-	{
-		who_is_alive();
-		that.complete_update();
-		that.draw();
-	}
-
-	color_code = function(n){
-    	if(n > 0)
-			color = Color(255,255,255);
-		else
-			color = Color(0,0,0);
-		return color;
-    }
-
-    draw_cell = function(x,y,status)
-    {
-    	my_color = color_code(status);
-    	pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
-						square_dimension, square_dimension, 0, color_code(0),my_color);
-    }
-
-    that.myCells = function(){
-     return myCells;
- }
-
-    that.myNeighbors = myNeighbors;
-
-	that.draw = function()
-	{
-		pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(),0, color_code(0),color_code(0));
-		map_the_living_cells.forEach(function(element,x) { 
-				element.forEach(function(y,indice) {
-					draw_cell(x,y,1);
-				})
-		});
-	}
 	var myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0.1);
 	var myNeighbors = []
 	var map_the_living_cells = []
 	that.complete_update();
 	return that;
-
 }
  
 	//int=setInterval(filming,1500);
