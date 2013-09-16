@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>Game of Life Part 1</title>
     <script src="graphics.js"></script>
+    <script src="life.js"></script>
+    <script src="function.js"></script>
+    
     <style>
-    canvas {position: absolute; left: 100px; top: 100px; height:400px; width:400px}
+    canvas#canvas {position: absolute; left: 50px; top: 130px;}
+    #explanations {position: absolute; left: 20px; top: 20px; height:40px; width:900px}
+    #control {position: absolute; left: 20px; top: 80px; height:40px; width:120px}
+    #creation {position: absolute; left: 220px; top: 80px; height:40px; width:400px}
+    #valeur {position: absolute; left: 650px; top: 80px; height:40px; width:400px}
+    #glider {position: absolute; left: 750px; top: 80px; height:40px; width:400px}
     </style>
 </head>
 
@@ -12,12 +21,32 @@
 <!--
 define the HTML canvas element that will hold the graphical output
 -->
-<canvas id="canvas"></canvas>
-
+<canvas id="canvas"  height="500" width="800"></canvas>
 <!--
 execute the JavaScript
 -->
-<script src="basic_drawing.js"></script>
-
+<script src="play.js"></script>
+<br>
+<div id="change"></div>
+<div id="glider"></div>
+<div id="valeur">OK</div>
+<div id="glider"></div>
+<div id="creation">
+<button onclick="myGame.glider_generator()">Glider</button>
+<button onclick="myGame.spaceship_generator()">Spaceship</button>
+<button onclick="myGame.pentomino_r_generator()">Pentomino R</button>
+</div>
+<div id="explanations">
+	Each time the page is loaded a new configuration is randomly generated.The game can be stopped and re-started thanks to the buttons.
+	<br>
+	Some objects have been added to see some specific actions going in the game. The objects will be randomly postionned in the world.
+	<br>
+	The command "Armageddon" will kill all living cells
+</div>
+<div id="control">
+<button onclick="start();">Start</button>
+<button onclick="int=window.clearInterval(int)">Stop</button>
+<button onclick="myGame.armageddon()">Armageddon</button>
+</div>
 </body>
 </html>
