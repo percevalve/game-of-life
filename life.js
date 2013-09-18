@@ -7,6 +7,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 	rules[0] = [];
 	rules[1] = [];
 	rules[0][3]=1;
+//	rules[0][6]=1;
 	rules[1][0]=0;
 	rules[1][1]=0;
 	rules[1][4]=0;
@@ -36,28 +37,59 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 
     that.complete_update = function()
     {
-    	myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
+        var start = now();
+        myNeighbors = myNeighbors.map(function(line,line_number) { 
+            return line.map(function(value,row_number) { 
+                return 0;
+            }); 
+        });
+        //myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
+        var end = now();
+        $('#glider').append("<br>Neighbors to 0 : :" + (end - start));
+        var start = now();
     	map_the_living_cells = myCells.map(all_the_one);
+        var end = now();
+        $('#glider').append("<br>Map the Ones  : : " + (end - start));
+        var start = now();
     	map_the_living_cells.forEach(function(element,index) { update_neighbors_lines(index,element,1)})
+        var end = now();
+        $('#glider').append("<br>Update Neighbors : : " + (end - start));
     }
 
 
-//Still done in nested for loops, but should be done in the samed
-	who_is_alive = function(){
-		for (var i = 0; i < number_of_cells_per_line ; i = i + 1) {
-			for (var j = 0; j < number_of_lines_of_cells ; j = j + 1) {
-				answer = rules[myCells[i][j]][myNeighbors[i][j]] ;
-				myCells[i][j] = typeof answer === "undefined" ? myCells[i][j] : answer;
-			}
-		}
+	that.who_is_alive = function(){
+        myCells = myCells.map(function(line,line_number) { 
+            return line.map(function(value,row_number) { 
+                answer = rules[value][myNeighbors[line_number][row_number]] ;
+                if(answer === 0 )
+                    myDeath.push([line_number,row_number]);
+                if(answer === 1 )
+                    myBirth.push([line_number,row_number]);
+                myNeighbors[line_number][row_number] = 0 ;
+                return typeof answer === "undefined" ? value : answer;
+            }); 
+        });
+//		for (var i = 0; i < number_of_cells_per_line ; i = i + 1) {
+//			for (var j = 0; j < number_of_lines_of_cells ; j = j + 1) {
+//				answer = rules[myCells[i][j]][myNeighbors[i][j]] ;
+//
+//				myCells[i][j] = typeof answer === "undefined" ? myCells[i][j] : answer;
+//			}
+//		}
 	}
 
 	that.generations = function()
 	{
-		who_is_alive();
-		that.complete_update();
-		that.draw();
-	}
+        var start = now();
+        count = 0 ;
+        myCells.forEach(function(e) { e.map(function(elt) {count = elt === 1 ? (count+1):count;})});
+		var end = now();
+        $('#glider').append("<br>Counting cells : :" + (end - start));
+        timer(that.who_is_alive,"who_is_alive : "+count)();
+		timer(that.complete_update,"complete_update : "+count)();
+		timer(that.draw_change,"draw_change : "+count)();
+        //timer(that.draw,"draw : "+count)();
+    }
 
 ////////////////////////
 //Drawing the world.
@@ -73,7 +105,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 
     draw_cell = function(x,y,status)
     {
-    	my_color = color_code(status);
+        my_color = color_code(status);
     	pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
 						square_dimension, square_dimension, 0, color_code(0),my_color);
     }
@@ -91,6 +123,18 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 				})
 		});
 	}
+
+    that.draw_change = function()
+    {
+        myDeath.forEach(function(element) { 
+                draw_cell(element[0],element[1],0);
+            });
+        myBirth.forEach(function(element) { 
+                draw_cell(element[0],element[1],1);
+            });
+        myDeath = [];
+        myBirth = [];
+    }
 
 
 ////////////////////////
@@ -191,10 +235,23 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     	that.draw();
     }
 
-	var myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0.1);
-	var myNeighbors = []
-	var map_the_living_cells = []
-	that.complete_update();
+	var start = now();
+    var myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0.2);
+    var end = now();
+    $('#glider').append("<br>Create Celle  : : " + (end - start));
+    var start = now();
+	var myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
+    var end = now();
+    $('#glider').append("<br>First Neighbors  : : " + (end - start));
+    myDeath = [];
+    myBirth = [];
+	var map_the_living_cells = [];
+    map_the_living_cells = myCells.map(all_the_one);
+    timer(that.draw,"Init draw : ")();that.draw();
+	timer(that.complete_update,"Initial complete_update : ")();
+	that.myNeighbors = function  (argument) {
+		return myNeighbors;
+	}
 	return that;
 }
  

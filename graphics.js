@@ -14,7 +14,6 @@ var Color = function (red, green, blue) {
 var Pad = function (canvas) {
 	var DEFAULT_CIRCLE_RADIUS = 5;
 	var DEFAULT_LINE_WIDTH = 2;
-
 	var context = canvas.getContext('2d');
 	var width = canvas.width;
 	var height = canvas.height;

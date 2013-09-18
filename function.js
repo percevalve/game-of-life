@@ -7,9 +7,17 @@
 //Create the lines of the world
 	recursiveArray = function(n,randomness) { 
 		if(n<=0) return []; 
-		var result = [Math.random() < randomness ? 1 : 0]; 
+		var result = [my_two_sided_dice(randomness)]; 
 		return result.concat(recursiveArray(n-1,randomness));
 	}
+
+    my_two_sided_dice = function(fate){
+        if(fate === 0 )
+            return 0;
+        if(fate === 1)
+            return 1;
+        return Math.random() < fate ? 1 : 0;
+    }
    
 //this returns positive value for a modulo
     positive_mod = function(n,mod) {
@@ -30,4 +38,19 @@
     all_the_one = function(table) { 
     	var needle = 1 ;
 		return all_the_values(table,needle);
+    }
+
+    now = function () {
+        return new Date().getTime();
+    }
+
+
+    timer = function (f,text) {
+        return function (i) {
+            var start = now();
+            var result = f(i);
+            var end = now();
+            $('#glider').append("<br>"+ text + " : " + (end - start));
+            return result;
+        }
     }
