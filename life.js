@@ -88,7 +88,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
         timer(that.who_is_alive,"who_is_alive : "+count)();
 		timer(that.complete_update,"complete_update : "+count)();
 		timer(that.draw_change,"draw_change : "+count)();
-        //timer(that.draw,"draw : "+count)();
+        timer(that.draw,"draw : "+count)();
     }
 
 ////////////////////////
@@ -97,17 +97,18 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 
 	color_code = function(n){
     	if(n > 0)
-			color = Color(255,255,255);
+			color = "black";
 		else
-			color = Color(0,0,0);
+			color = "white";
 		return color;
     }
 
     draw_cell = function(x,y,status)
     {
         my_color = color_code(status);
-    	pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
-						square_dimension, square_dimension, 0, color_code(0),my_color);
+        $('#cell_'+x+'_'+y+'').css({background:my_color});
+    	//pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
+		//				square_dimension, square_dimension, 0, color_code(0),my_color);
     }
 
     that.myCells = function(){
@@ -116,8 +117,9 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 
 	that.draw = function()
 	{
-		pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(),0, color_code(0),color_code(0));
-		map_the_living_cells.forEach(function(element,x) { 
+		//pad.draw_rectangle(Coord(0, 0), pad.get_width(), pad.get_height(),0, color_code(0),color_code(0));
+        $('div.columns div').css({background:'white'});
+        map_the_living_cells.forEach(function(element,x) { 
 				element.forEach(function(y,indice) {
 					draw_cell(x,y,1);
 				})
