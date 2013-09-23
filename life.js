@@ -152,7 +152,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     	that.draw();
     }
 
-    that.spaceship_generator = function(x,y)
+    that.spaceship_generator = function(myGame,max_x,max_y,x,y)
     {
     	spaceship = [] ;
     	spaceship.push([0,0,1]);
@@ -164,7 +164,7 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     	spaceship.push([3,2,1]);
     	spaceship.push([3,3,1]);
     	spaceship.push([3,4,1]);
-    	engine_generator(x,y,spaceship);
+    	engine_generator(myGame,max_x,max_y,spaceship,x,y);
     }
 
     that.pentomino_r_generator = function(x,y)

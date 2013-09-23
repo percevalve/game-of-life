@@ -8,6 +8,8 @@
     <script src="board.js"></script>
     <script src="gameoflife.js"></script>
     <script src="playgame.js"></script>
+    <script src="controler.js"></script>
+
 
    
     
@@ -37,22 +39,16 @@ define the HTML canvas element that will hold the graphical output
 <div class="clear"></div>
  
 <br>
-<div id="change"></div>
-<div id="glider"></div>
-<div id="valeur"></div>
-<div id="glider">Log report<br></div>
 <div id="creation">
-<button id="">Glider</button>
-<button id="">Spaceship</button>
-<button id="">Pentomino R</button>
+<button id="myglider">Glider</button>
+<button id="spaceship">Spaceship</button>
+<button id="pento">Pentomino R</button>
 </div>
 <div id="explanations">
-	Each time the page is loaded a new configuration is randomly generated.The game can be stopped and re-started thanks to the buttons.
+	Each time the page is loaded a new configuration is empty.The game can be stopped and re-started thanks to the buttons.
 	<br>
 	Some objects have been added to see some specific actions going in the game. The objects will be randomly postionned in the world.
-	<br>
-	The command "Armageddon" will kill all living cells
-</div>
+	</div>
 <div id="control">
 <button id="start">Start</button>
 <button id="stop">Stop</button>
