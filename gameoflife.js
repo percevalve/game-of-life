@@ -22,7 +22,6 @@ GameOfLife = function(divIdName,cellsPerLine,lineOfCells,sizeOfCellDiameter) {
 			for(var v= (-1) ; v <= 1 ; v = v +1 ) {
 				xx = positive_mod((x + h),cellsPerLine) ;
 				yy = positive_mod((y + v),lineOfCells) ;
-				console.log([xx,yy]);
 				if(xx !== x || yy !== y){
 					if(integerStatus === 0)
 						_world[xx][yy].decreaseNeighbor();
