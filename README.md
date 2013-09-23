@@ -1,7 +1,7 @@
 proj1
 =====
 
-The aim of the tool is to help discover the different Game of Live structures, see some of them in action and test some different configuration.
+The aim of the tool is to help discover the different Game of Live structures, see some of them in action.
 Secondly, by allowing changing the rules during the games, we can see how the rules can shape the way "life" can develop itself and what organizatinal form are typical. The idea, is not only to change the rules.
 
 
