@@ -32,7 +32,7 @@ Board = function(divIdName,cellsPerLine,lineOfCells,sizeOfCellDiameter,gameRefer
 						width : _actualsize, 
 						height: _actualsize, 
 						margin: _margin + "px" , 
-						background:"blue"}
+						background:_cellInitialColor}
 				}).appendTo("#"+divIdName)
 			})
 		})
