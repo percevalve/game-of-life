@@ -1,14 +1,16 @@
 
 //randomness will have some cell at a of 1, randomness 1 means all of them are alive, 0 all are dead
-	initArray = function(width,height,randomness) {
-		return recursiveArray(width,randomness).map(function () {return recursiveArray(height,randomness);});
+	initArray = function(width,height,randomness,callback) {
+		return recursiveArray(width,randomness,callback).map(function () {return recursiveArray(height,randomness,callback);});
 	}
 
+
+
 //Create the lines of the world
-	recursiveArray = function(n,randomness) { 
+	recursiveArray = function(n,randomness,callback) { 
 		if(n<=0) return []; 
-		var result = [my_two_sided_dice(randomness)]; 
-		return result.concat(recursiveArray(n-1,randomness));
+		var result = [callback(randomness)]; 
+		return result.concat(recursiveArray(n-1,randomness,callback));
 	}
 
     my_two_sided_dice = function(fate){
@@ -32,7 +34,16 @@
 		return recursion.concat([last]);
     }
 
+    times = function(n) {
+        return function(f) {
+            fromTo (0, n, f);
+        }
+    }
 
+    var fromTo = function (from, to, f) {
+        for (var i = from; i < to; i = i+1)
+            f(i); 
+    };
 
 //this returns the index of all the value one in a given array
     all_the_one = function(table) { 
@@ -54,3 +65,10 @@
             return result;
         }
     }
+
+//From http://stackoverflow.com/questions/15313418/javascript-assert
+    function assert(condition, message) {
+    if (!condition) {
+        throw message || "Assertion failed";
+    }
+}

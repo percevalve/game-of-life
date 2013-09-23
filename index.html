@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Game of Life Part 2, let's the DOM do the Job.</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="function.js"></script>
+    <script src="cell.js"></script>
+    <script src="board.js"></script>
+    <script src="gameoflife.js"></script>
+    <script src="playgame.js"></script>
+
+   
+    
+    <style>
+    #explanations {position: absolute; left: 20px; top: 20px; height:40px; width:900px}
+    #control {position: absolute; left: 20px; top: 80px; height:40px; width:120px}
+    #creation {position: absolute; left: 220px; top: 80px; height:40px; width:400px}
+    #valeur {position: absolute; left: 650px; top: 80px; height:40px; width:400px}
+    #glider {position: absolute; left: 20px; top: 950px; height:40px; width:400px}
+    #canvas_container {position: absolute; left: 50px; top: 130px; background-color: white; display:inline-block ; border-spacing: 10px}
+    div.columns       { width: 900px; }
+div.columns div   { float: left; }
+div.clear         { clear: both; }
+    </style>
+</head>
+
+<body>
+
+<!--
+define the HTML canvas element that will hold the graphical output
+-->
+
+<div id="canvas_container"  class="columns">
+    
+</div>
+
+<div class="clear"></div>
+ 
+<br>
+<div id="change"></div>
+<div id="glider"></div>
+<div id="valeur"></div>
+<div id="glider">Log report<br></div>
+<div id="creation">
+<button id="">Glider</button>
+<button id="">Spaceship</button>
+<button id="">Pentomino R</button>
+</div>
+<div id="explanations">
+	Each time the page is loaded a new configuration is randomly generated.The game can be stopped and re-started thanks to the buttons.
+	<br>
+	Some objects have been added to see some specific actions going in the game. The objects will be randomly postionned in the world.
+	<br>
+	The command "Armageddon" will kill all living cells
+</div>
+<div id="control">
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+<button id="armageddon">Armageddon</button>
+</div>
+</body>
+</html>

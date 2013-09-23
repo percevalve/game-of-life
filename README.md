@@ -1,6 +1,10 @@
 proj1
 =====
 
+The aim of the tool is to help discover the different Game of Live structures, see some of them in action and test some different configuration.
+Secondly, by allowing changing the rules during the games, we can see how the rules can shape the way "life" can develop itself and what organizatinal form are typical. The idea, is not only to change the rules.
+
+
 function.js contains the most generic functions used in life.js
 life.js contains the closure that have all the information to generate the game and control.
 play.js is the particular game that is displayed.

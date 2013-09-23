@@ -4,17 +4,17 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 	var that = {};
 //The rule : Status of the cell, Number of Neighbors, Decision (ie Dead or Alive)
 	var rules = [];
-	rules[0] = [];
-	rules[1] = [];
-	rules[0][3]=1;
-//	rules[0][6]=1;
-	rules[1][0]=0;
-	rules[1][1]=0;
-	rules[1][4]=0;
-	rules[1][5]=0;
-	rules[1][6]=0;
-	rules[1][7]=0;
-	rules[1][8]=0;
+    rules[0] = [];
+    rules[1] = [];
+    rules[0][3]=1;
+//  rules[0][6]=1;
+    rules[1][0]=0;
+    rules[1][1]=0;
+    rules[1][4]=0;
+    rules[1][5]=0;
+    rules[1][6]=0;
+    rules[1][7]=0;
+    rules[1][8]=0;
 
 
     update_neighbors_cell = function(x,y,value)
@@ -110,10 +110,6 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
     	//pad.draw_rectangle(Coord(x*square_dimension,y*square_dimension),
 		//				square_dimension, square_dimension, 0, color_code(0),my_color);
     }
-
-    that.myCells = function(){
-     return myCells;
- }
 
 	that.draw = function()
 	{
@@ -231,18 +227,18 @@ var GameOfLife = function (pad,number_of_cells_per_line,number_of_lines_of_cells
 //this will take out all live from the board
     that.armageddon = function()
     {
-    	myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
-    	myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
+    	myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0,my_two_sided_dice);
+    	myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0,my_two_sided_dice);
     	that.complete_update();
     	that.draw();
     }
 
 	var start = now();
-    var myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0.2);
+    var myCells = initArray(number_of_cells_per_line,number_of_lines_of_cells,0.2,my_two_sided_dice);
     var end = now();
     $('#glider').append("<br>Create Celle  : : " + (end - start));
     var start = now();
-	var myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0);
+	var myNeighbors = initArray(number_of_cells_per_line,number_of_lines_of_cells,0,my_two_sided_dice);
     var end = now();
     $('#glider').append("<br>First Neighbors  : : " + (end - start));
     myDeath = [];
