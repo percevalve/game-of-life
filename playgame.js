@@ -2,7 +2,7 @@ $(function() {
 	NUMBER_OF_CELLS_PER_LINE = 20;
 	NUMBER_OF_LINES_OF_CELLS = 15;
 	DIAMETER = 20 ;
-	DEBUG =  1;
+	DEBUG =  0;
 
 	theGame = GameOfLife("canvas_container",
 		NUMBER_OF_CELLS_PER_LINE,NUMBER_OF_LINES_OF_CELLS,
