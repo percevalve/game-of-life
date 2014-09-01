@@ -9,7 +9,7 @@ Board = function(divIdName,cellsPerLine,lineOfCells,sizeOfCellDiameter,gameRefer
 		_boardBackgroundColor = "red" ;
 		_cellInitialColor = "blue" ;
 	} else {
-		_boardBackgroundColor = "white" ;
+		_boardBackgroundColor = "lightgray" ;
 		_cellInitialColor = "white" ;
 	}
 	var _margin = Math.min(Math.max(Math.floor(sizeOfCellDiameter*_cellMargin),1),_maxCellMargin);

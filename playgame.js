@@ -12,20 +12,38 @@ $(function() {
 	
 	
 
-start = function()
+var start = function(self)
 {
-	if(typeof int === "undefined")
-		int=window.setInterval(theGame.gameTurn,150);
+	if(typeof theGameStatus === "undefined"){
+		theGameStatus = window.setInterval(theGame.gameTurn,150);
+		statusCheck(theGameStatus);
+	}
 }
 
-stop = function()
+var stop = function(self)
 {
-	if(typeof int !== "undefined")
-		int = window.clearInterval(int);
+	if(typeof theGameStatus !== "undefined"){
+		theGameStatus = window.clearInterval(theGameStatus);
+		statusCheck(theGameStatus);
+	}
 }
 
-$('#start').click(start);
-$('#stop').click(stop);
+var statusCheck = function(intStatus){
+	if(typeof theGameStatus !== "undefined"){
+		button_start.attr("disabled", true);
+		button_stop.attr("disabled", false);
+	}
+	else{
+		button_stop.attr("disabled", true);
+		button_start.attr("disabled", false);
+	}
+}
+
+var button_start = $('button#start')
+var button_stop = $('button#stop')
+button_start.click(start);
+button_stop.click(stop);
+statusCheck();
 $('#spaceship').click(function() {theControler.spaceship_generator();});
 $('#pento').click(function() {theControler.pentomino_r_generator();});
 $('#myglider').click(function() {theControler.glider_generator();});
