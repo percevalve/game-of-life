@@ -1,12 +1,17 @@
 #Game of Life
 =====
 
-The aim of the tool is to help discover the different Game of Live structures, see some of them in action.
+The aim of the tool is to help discover the different [Conway's Game of Live](http://en.wikipedia.org/wiki/Conway's_Game_of_Life) patterns, see some of them in action.
 Secondly, by allowing changing the rules during the games, we can see how the rules can shape the way "life" can develop itself and what organizatinal form are typical. The idea, is not only to change the rules.
 
 ##Usability:
-When starting from a randomly generated world, the action tends to stabilize fast, so I added 2 types of "moving" objects : gliders (going up and going down) and a shapeship. The aim is to have then collide and re-created life.
-I also added pentomino R object, that from a very simple form, generates a fair amount of life.
+Initially the "world" is empty, you need to add [patterns](http://en.wikipedia.org/wiki/Conway's_Game_of_Life#Examples_of_patterns) (or objects).
+They are 3 different patterns for the moment:
+*[Spaceships](http://www.conwaylife.com/wiki/Types_of_spaceships#Standard_spaceship) :
+  * [Gliders](http://www.conwaylife.com/wiki/Glider) (going up and going down), moves in diagonal.
+  * [Lightweight spaceship (LWSS)](http://www.conwaylife.com/wiki/Lightweight_spaceship), moves orthogonally.
+*[Methuselahs](http://en.wikipedia.org/wiki/Methuselah_(cellular_automaton)) :
+  * [Pentomino R](http://www.conwaylife.com/wiki/R-pentomino) , that from a very simple form, generates a fair amount of life.
 All the object are randomly positionned.
 
 ##Rules:
